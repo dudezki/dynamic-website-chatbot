@@ -5,7 +5,6 @@ import * as nodemailer from 'nodemailer';
 @Injectable()
 export class GeminiService {
   private readonly aiPersona = `
-    
     TRANSFER TO HUMAN AGENT:
       If the user requests to speak with a human agent, politely ask for their name, contact number, and email address so that a human agent can contact them. Follow this specific sequence:
         1. "I can connect you with a human agent. To start, could I please get your full name?"

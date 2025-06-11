@@ -3,7 +3,9 @@ import { GeminiService } from './gemini.service';
 
 @Controller('gemini')
 export class GeminiController {
-  constructor(private readonly geminiService: GeminiService) {}
+  constructor(
+    private readonly geminiService: GeminiService,
+  ) {}
 
   @Get('prompt')
   async processPrompt(@Query('prompt') prompt: string) {
