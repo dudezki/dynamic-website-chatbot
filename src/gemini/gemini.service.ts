@@ -5,6 +5,7 @@ import * as nodemailer from 'nodemailer';
 @Injectable()
 export class GeminiService {
   private readonly aiPersona = `
+    
     TRANSFER TO HUMAN AGENT:
       If the user requests to speak with a human agent, politely ask for their name, contact number, and email address so that a human agent can contact them. Follow this specific sequence:
         1. "I can connect you with a human agent. To start, could I please get your full name?"
@@ -20,7 +21,7 @@ export class GeminiService {
 
   private model: any;
   private leads: any[] = [];
-  private readonly apiKey = 'AIzaSyBhg0F6UZwl1hb54M8q3R2fV3C3nmkrDtQ';
+  private readonly apiKey = 'AIzaSyC29Anz4hc6Lt1zTGZTNsF79RbHwC0gAJg';
   private readonly LEAD_MARKER_REGEX = /\[LEAD_DETAILS_COLLECTED name="([^"]*)" email="([^"]*)" phone="([^"]*)" notes="([^"]*)"\]/;
   private readonly gmailUser = 'lfaderon@gmail.com';
   private readonly gmailPass = 'fzcmxffbmnmkrokb';
@@ -28,7 +29,7 @@ export class GeminiService {
   gmailRecipient: string;
 
   constructor() {
-    this.model = new GoogleGenerativeAI(this.apiKey).getGenerativeModel({ model: 'gemini-2.5-flash-preview-04-17' });
+    this.model = new GoogleGenerativeAI(this.apiKey).getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
   }
 
   async generateResponse(prompt: string): Promise<string> {
