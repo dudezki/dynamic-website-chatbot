@@ -28,7 +28,7 @@ export class GeminiService {
   gmailRecipient: string;
 
   constructor() {
-    this.model = new GoogleGenerativeAI(this.apiKey).getGenerativeModel({ model: 'emini-2.0-flash' });
+    this.model = new GoogleGenerativeAI(this.apiKey).getGenerativeModel({ model: 'gemini-2.0-flash' });
   }
 
   async generateResponse(prompt: string): Promise<string> {
