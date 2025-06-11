@@ -17,8 +17,9 @@ export class GeminiService {
         - I'm sorry, all our agents are currently busy. Please hold on while I connect you to a human agent.
   `;
    
+  // The AI persona is used to guide the AI's responses and behavior
+  // Fre tier Gemini 2.0 Flash Exp model is used for generating responses
    
-
   private model: any;
   private leads: any[] = [];
   private readonly apiKey = 'AIzaSyC29Anz4hc6Lt1zTGZTNsF79RbHwC0gAJg';
