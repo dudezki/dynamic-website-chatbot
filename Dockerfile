@@ -7,16 +7,13 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci --only=production && npm cache clean --force
+RUN npm ci --only=production
 
 # Copy source code
 COPY . .
 
 # Build the application
 RUN npm run build
-
-# Create data directory for SQLite (if using SQLite)
-RUN mkdir -p /app/data
 
 # Expose port
 EXPOSE 8080

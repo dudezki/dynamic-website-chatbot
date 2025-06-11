@@ -91,23 +91,39 @@ export class DatabaseService {
 
   async checkTablesExist(): Promise<{ clients: boolean; client_access_tokens: boolean }> {
     try {
-      const clientsTable = await this.dataSource.query(`
-        SELECT name FROM sqlite_master WHERE type='table' AND name='clients'
-        UNION ALL
-        SELECT table_name as name FROM information_schema.tables WHERE table_name='clients'
-      `);
+      const dbType = this.dataSource.options.type;
       
-      const tokensTable = await this.dataSource.query(`
-        SELECT name FROM sqlite_master WHERE type='table' AND name='client_access_tokens'
-        UNION ALL
-        SELECT table_name as name FROM information_schema.tables WHERE table_name='client_access_tokens'
-      `);
+      if (dbType === 'sqlite') {
+        const clientsTable = await this.dataSource.query(`
+          SELECT name FROM sqlite_master WHERE type='table' AND name='clients'
+        `);
+        
+        const tokensTable = await this.dataSource.query(`
+          SELECT name FROM sqlite_master WHERE type='table' AND name='client_access_tokens'
+        `);
 
-      return {
-        clients: clientsTable.length > 0,
-        client_access_tokens: tokensTable.length > 0,
-      };
+        return {
+          clients: clientsTable.length > 0,
+          client_access_tokens: tokensTable.length > 0,
+        };
+      } else {
+        const clientsTable = await this.dataSource.query(`
+          SELECT table_name FROM information_schema.tables 
+          WHERE table_schema = 'public' AND table_name = 'clients'
+        `);
+        
+        const tokensTable = await this.dataSource.query(`
+          SELECT table_name FROM information_schema.tables 
+          WHERE table_schema = 'public' AND table_name = 'client_access_tokens'
+        `);
+
+        return {
+          clients: clientsTable.length > 0,
+          client_access_tokens: tokensTable.length > 0,
+        };
+      }
     } catch (error) {
+      console.error('Error checking tables:', error);
       return {
         clients: false,
         client_access_tokens: false,
@@ -115,5 +131,3 @@ export class DatabaseService {
     }
   }
 }
-
-// Usage example in a controller or service
