@@ -115,3 +115,5 @@ export class DatabaseService {
     }
   }
 }
+
+// Usage example in a controller or service
